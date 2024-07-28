@@ -36,7 +36,7 @@ function Generate-Content-Tree {
     Write-Debug "Converting markdown to html"
     $markdownHtml = ($markdown | markdown) -join "`n    "
 
-    $titleMatches = $markdown | Select-String -Pattern '^\s*#\s*(\w+)\s*$'
+    $titleMatches = $markdown | Select-String -Pattern '^\s*#\s*([\w\- ]+)\s*$'
     if($titleMatches.Matches.Success) {
       $title = $titleMatches.Matches.Groups[1].Value
     } else {
