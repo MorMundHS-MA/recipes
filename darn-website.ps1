@@ -110,3 +110,7 @@ function Generate-Content-Tree {
 }
 
 Generate-Content-Tree -root "./content" -treePath "."
+if (Test-Path -Path "./favicon.ico")
+{
+  Copy-Item -Path "./favicon.ico" -Destination "$target/favicon.ico"
+}
