@@ -1,10 +1,15 @@
-$target = Convert-Path -LiteralPath './target/'
+$targetDir = "./target/"
+
+Write-Debug "Deleting $targetDir if it exists"
+Remove-Item -Recurse -Path $targetDir
+
+New-Item -ItemType Directory $targetDir
+
+$target = Convert-Path -LiteralPath $targetDir
 $template = Get-Content "./template.html"
 
 $siteName = "Recipes"
 
-Write-Debug "Deleting ./target/ if it exists"
-Remove-Item -Recurse -Path $target
 
 function Generate-Content-Tree {
   param (
@@ -33,15 +38,17 @@ function Generate-Content-Tree {
 
     Write-Debug "Reading input markdown $contentPath"
     $markdown = Get-Content $_
-    Write-Debug "Converting markdown to html"
-    $markdownHtml = ($markdown | markdown) -join "`n    "
-
     $titleMatches = $markdown | Select-String -Pattern '^\s*#\s*([\w\- ]+)\s*$'
-    if($titleMatches.Matches.Success) {
+    if ($titleMatches.Matches.Success) {
       $title = $titleMatches.Matches.Groups[1].Value
-    } else {
+      $markdown = $markdown.Replace($titleMatches.Matches.Groups[0].Value, "$($titleMatches.Matches.Groups[0].Value)`n`n[Zurück](./index.html)")
+    }
+    else {
       throw "No title found in $contentPath"
     }
+    
+    Write-Debug "Converting markdown to html"
+    $markdownHtml = ($markdown | markdown) -join "`n    "
 
     $html = $template.replace('$title$', $title).replace('$template$', $markdownHtml) -join "`n"
 
@@ -67,23 +74,25 @@ function Generate-Content-Tree {
   }
 
 
-  if($treePath -eq ".") {
+  if ($treePath -eq ".") {
     $indexTitle = $siteName
-  } else {
+  }
+  else {
     $indexTitle = "$siteName - $(Split-Path $targetTree -Leaf)"
   }
 
   $indexMarkdown = "# $indexTitle`n"
 
-  if($treePath -ne ".") {
+  if ($treePath -ne ".") {
     Write-Host $treePath
     $indexMarkdown += "[Zurück](..)`n"
   }
 
   $contentListing | ForEach-Object {
-    if($_.type -eq "directory") {
+    if ($_.type -eq "directory") {
       $linkUrl = "$($_.path)/index.html"
-    } else {
+    }
+    else {
       $linkUrl = "$($_.path).html"
     }
   
