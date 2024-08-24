@@ -2,15 +2,15 @@
 
 ## Zutaten
 
-500 g   kleine festkochende Kartoffeln
-1 Bund   Petersilie
-1   Bio-Zitrone
-1   Knoblauchzehe
-2 EL   ganze Mandeln (mit Haut)
-50 g   Cornichons (Glas)
-4 EL   Olivenöl
-Salz
-Pfeffer
+* 500 g   kleine festkochende Kartoffeln
+* 1 Bund   Petersilie
+* 1   Bio-Zitrone
+* 1   Knoblauchzehe
+* 2 EL   ganze Mandeln (mit Haut)
+* 50 g   Cornichons (Glas)
+* 4 EL   Olivenöl
+* Salz
+* Pfeffer
 
 ## Zubereitung
 
