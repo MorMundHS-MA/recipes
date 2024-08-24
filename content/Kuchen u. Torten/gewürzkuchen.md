@@ -1,4 +1,6 @@
-# Zutaten
+# Gewürzkuchen
+
+## Zutaten
 
 * 500g Zucker
 * 6 Eier
