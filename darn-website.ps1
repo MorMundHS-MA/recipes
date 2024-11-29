@@ -1,3 +1,4 @@
+#!/bin/pwsh
 $targetDir = "./target/"
 
 Write-Debug "Deleting $targetDir if it exists"
