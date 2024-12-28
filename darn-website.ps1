@@ -2,7 +2,7 @@
 $targetDir = "./target/"
 
 Write-Debug "Deleting $targetDir if it exists"
-Remove-Item -Recurse -Path $targetDir
+Remove-Item -ErrorAction Ignore -Recurse -Path $targetDir
 
 New-Item -ItemType Directory $targetDir
 
