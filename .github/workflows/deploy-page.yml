@@ -12,6 +12,10 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
+      - name: Install markdown
+        run: |
+          sudo apt update
+          sudo apt install markdown
       - name: Build
         shell: pwsh
         run: ./darn-website.ps1
