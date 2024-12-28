@@ -71,7 +71,7 @@ function Build-Content-Tree {
       "path"  = $nextTree
       "type"  = "directory"
     }
-    Generate-Content-Tree -root $root -treePath $nextTree
+    Build-Content-Tree -root $root -treePath $nextTree
   }
 
 
