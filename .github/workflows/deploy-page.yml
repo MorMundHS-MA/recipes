@@ -1,0 +1,37 @@
+name: Build and deploy content to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build darn website
+    runs-on: ubuntu-latest  
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Build
+        shell: pwsh
+        run: ./darn-website.ps1
+      - name: Upload static files as artifact
+        id: deployment
+        uses: actions/upload-pages-artifact@v3.0.1
+        with:
+          path: target/
+
+  deployment:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment: 
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4.0.5
+
