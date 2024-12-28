@@ -1,10 +1,10 @@
 #!/bin/pwsh
 $targetDir = "./target/"
 
-Write-Debug "Deleting $targetDir if it exists"
-Remove-Item -ErrorAction Ignore -Recurse -Path $targetDir
+Write-Host "Deleting $targetDir if it exists"
+Remove-Item -ErrorAction Ignore -Recurse -Path $targetDir > $null
 
-New-Item -ItemType Directory $targetDir
+New-Item -ItemType Directory $targetDir > $null
 
 $target = Convert-Path -LiteralPath $targetDir
 $template = Get-Content "./template.html"
@@ -12,7 +12,7 @@ $template = Get-Content "./template.html"
 $siteName = "Recipes"
 
 
-function Generate-Content-Tree {
+function Build-Content-Tree {
   param (
     [string]$root,
     [string]$treePath
@@ -20,7 +20,7 @@ function Generate-Content-Tree {
   
   $contentTree = Join-Path -Path $root -ChildPath $treePath
   $targetTree = Join-Path -Path $target -ChildPath $treePath
-  Write-Debug "Generating content from $contentTree"
+  Write-Host "Generating content from $contentTree"
   
   $null = New-Item -Path $targetTree -ItemType Directory -Force
 
@@ -37,7 +37,7 @@ function Generate-Content-Tree {
     $contentPath = $_.FullName
     $outPath = Join-Path -Path $targetTree -ChildPath "$($_.BaseName).html"
 
-    Write-Debug "Reading input markdown $contentPath"
+    Write-Host "Reading input markdown $contentPath"
     $markdown = Get-Content $_
     $titleMatches = $markdown | Select-String -Pattern '^\s*#\s*([\w\- ]+)\s*$'
     if ($titleMatches.Matches.Success) {
@@ -48,7 +48,7 @@ function Generate-Content-Tree {
       throw "No title found in $contentPath"
     }
     
-    Write-Debug "Converting markdown to html"
+    Write-Host "Converting markdown to html"
     $markdownHtml = ($markdown | markdown) -join "`n    "
 
     $html = $template.replace('$title$', $title).replace('$template$', $markdownHtml) -join "`n"
@@ -110,7 +110,7 @@ function Generate-Content-Tree {
   Write-Host "Generated index $indexPath from $treePath"
 }
 
-Generate-Content-Tree -root "./content" -treePath "."
+Build-Content-Tree -root "./content" -treePath "."
 if (Test-Path -Path "./favicon.ico")
 {
   Copy-Item -Path "./favicon.ico" -Destination "$target/favicon.ico"
