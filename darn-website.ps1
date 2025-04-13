@@ -39,7 +39,7 @@ function Build-Content-Tree {
 
     Write-Host "Reading input markdown $contentPath"
     $markdown = Get-Content $_
-    $titleMatches = $markdown | Select-String -Pattern '^\s*#\s*([\w\- ]+)\s*$'
+    $titleMatches = $markdown | Select-String -Pattern '^\s*#\s*([\w\- ()]+)\s*$'
     if ($titleMatches.Matches.Success) {
       $title = $titleMatches.Matches.Groups[1].Value
       $markdown = $markdown.Replace($titleMatches.Matches.Groups[0].Value, "$($titleMatches.Matches.Groups[0].Value)`n`n[Zurück](./index.html)")
