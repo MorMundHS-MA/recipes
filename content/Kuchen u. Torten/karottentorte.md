@@ -23,7 +23,7 @@
 
 1. Möhren fein reiben
 1. Eigelb und Zucker schaumig rühren und Zitronenschale dazu geben
-1. Mehl und Backpulver mit Ei und Zucker vermengen
+1. Mehl, Karotten und Backpulver mit Ei und Zucker vermengen
 1. Eiweiß steifschlagen und mit Schneebesen langsam unterheben
 1. Springform (26cm) mit Butter einfetten und Bröseln bestreuen
 1. Auf mittlere Schiene bei 200° Umluft 60 Minuten backen
